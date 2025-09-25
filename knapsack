@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int knapsack(int N, int p[], int wt[], int W){
+	int dp[W+1];
+	for(int i=0; i<=W; i++){
+		dp[i] = 0;
+	}
+	for(int i=0; i<N; i++){
+		for(int w=W; w >= wt[i]; w--){
+			if(dp[w] < dp[w - wt[i]] + p[i]) {
+				dp[w] = dp[w - wt[i]] + p[i];
+			}
+		}
+	}
+	return dp[W];
+}
+
+int main(){
+	int N, W;
+	scanf("%d", &N);
+	int val[N], wt[N];
+
+	for (int i=0; i<N; i++){
+		scanf("%d", &val[i]);
+	}
+
+	for(int i=0; i<N; i++){
+		scanf("%d", &wt[i]);
+	}
+	scanf("%d", &W);
+	int result = knapsack(N, val, wt, W);
+	printf("%d\n", result);
+	return 0;
+}
