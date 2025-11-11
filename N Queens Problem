@@ -1,0 +1,30 @@
+#include <stdio.h>
+int count =0;
+int cols[15], diag1[30], diag2[30];
+
+void solve(int row, int n){
+	if(row==n){
+		count++;
+		return;
+	}
+	for(int col=0; col < n; col++){
+		if(!cols[col] && !diag1[row - col + n - 1] && !diag2[row + col]) {
+			cols[col] = diag1[row - col + n - 1] = diag2[row + col] = 1;
+			solve(row+1, n);
+			cols[col] = diag1[row - col + n -1] = diag2[row + col] =0;
+		}
+	}
+}
+
+int nQueen(int n){
+	count = 0;
+	solve(0, n);
+	return count;
+}
+
+int main(){
+	int n;
+	scanf("%d", &n);
+	printf("%d", nQueen(n));
+	return 0;
+}
